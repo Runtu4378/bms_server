@@ -12,6 +12,9 @@ router.get('/login', (req, res) => {
   const { uidSave: uid } = req.cookies
 
   try {
+    if (!uid) {
+      return dealRes(res, 1, '请登录！')
+    }
     pool.getConnection((err, connection) => {
       connection.query(userSQL.getUserById, [uid], (err1, result) => {
         if (err1) throw new Error(err1)
@@ -55,6 +58,19 @@ router.post('/login', (req, res, next) => {
         return dealRes(res, 1, '用户不存在！')
       })
     })
+  } catch (e) {
+    // console.log(e)
+    return dealRes(res, 1, 'internal error')
+  }
+})
+
+router.post('/logout', (req, res, next) => {
+  try {
+    res.cookie('uidSave', null, {
+      expires: new Date(Date.now()), // 分钟
+      httpOnly: false,
+    })
+    return dealRes(res, 0, {})
   } catch (e) {
     // console.log(e)
     return dealRes(res, 1, 'internal error')
