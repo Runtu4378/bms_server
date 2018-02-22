@@ -3,6 +3,7 @@ import path from 'path'
 import http from 'http'
 import consolidate from 'consolidate'
 import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
 import compression from 'compression' // gzip压缩插件
 import debugObj from 'debug'
 import { port } from './config'
@@ -27,6 +28,8 @@ app.use(bodyParser.text()) // for parsing application/json
 app.use(bodyParser.urlencoded({
   extended: true,
 })) // for parsing application/x-www-form-urlencoded
+
+app.use(cookieParser())
 
 app.use(express.static(path.join(__dirname, '../dist')))
 app.use(express.static(path.join(__dirname, '../uploads')))
