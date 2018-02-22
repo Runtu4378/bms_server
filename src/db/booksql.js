@@ -1,8 +1,8 @@
-const JobSQL = {  
-  // insert: 'INSERT INTO user(uid,userName) VALUES(?,?)', 
-  queryPage: 'SELECT * FROM job LIMIT ?,?',
-  count: 'SELECT COUNT(*) AS total FROM job',
-  queryValue: 'SELECT * FROM job WHERE name LIKE ? OR type In (?)',
+const BookSQL = {  
+  // insert: 'INSERT INTO book(uid,userName) VALUES(?,?)', 
+  queryPage: 'SELECT * FROM book LIMIT ?,?',
+  count: 'SELECT COUNT(*) AS total FROM book',
+  queryValue: 'SELECT * FROM book WHERE name LIKE ? OR type In (?)',
 }
 
-export default JobSQL
+export default BookSQL

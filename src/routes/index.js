@@ -12,7 +12,7 @@ const router = (app) => {
     res.header('Access-Control-Allow-Headers', 'Access-Control-Allow-Origin, X-Requested-With, Content-Type')
     res.header('Access-Control-Allow-Credentials', true)
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
-    res.header('Access-Control-Allow-Origin', 'http://localhost:8014')
+    res.header('Access-Control-Allow-Origin', 'http://localhost:8081')
     next()
   })
 
