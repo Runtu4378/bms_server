@@ -72,4 +72,28 @@ router.get('/query', (req, res) => {
   }
 })
 
+// 新增图书
+router.post('/', (req, res) => {
+  try {
+    const { code, name, description } = req.body
+    if (!code) {
+      return dealRes(res, 1, '缺少图书编码！')
+    } else if (!name) {
+      return dealRes(res, 1, '缺少图书名称！')
+    }
+    const now = new Date()
+    pool.getConnection((err1, connection) => {
+      if (err1) { throw err1 }
+      connection.query(bookSQL.insert, [code, name, description, now, now], (err2, result) => {
+        // 释放连接池
+        connection.release()
+        if (err2) { throw err2 }
+        return dealRes(res, 0 , '添加成功！')
+      })
+    })
+  } catch (e) {
+    return dealRes(res, 1, 'internal error')
+  }
+})
+
 export default router
