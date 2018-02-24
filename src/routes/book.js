@@ -96,4 +96,29 @@ router.post('/', (req, res) => {
   }
 })
 
+// 更新图书
+router.put('/:id', (req, res) => {
+  try {
+    const { id } = req.params
+    const { name, description } = req.body
+    if (!id) {
+      return dealRes(res, 1, '图书id异常！')
+    } else if (!name) {
+      return dealRes(res, 1, '缺少图书名称！')
+    }
+    const now = new Date()
+    pool.getConnection((err1, connection) => {
+      if (err1) { throw err1 }
+      connection.query(bookSQL.update, [name, description, now, id], (err2, result) => {
+        // 释放连接池
+        connection.release()
+        if (err2) { throw err2 }
+        return dealRes(res, 0, '更新成功！')
+      })
+    })
+  } catch (e) {
+    return dealRes
+  }
+})
+
 export default router
