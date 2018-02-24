@@ -6,6 +6,10 @@ const BorrowSQL = {
   borrow: 'INSERT'
   + ' INTO borrow(uid, bid, date)'
   + ' VALUES(?, ?, ?)',
+  return: 'UPDATE'
+  + ' borrow'
+  + ' SET isReturn = 01'
+  + ' WHERE id = ?',
   // 标记借阅
   markBorrow: 'UPDATE'
   + ' book'
@@ -17,7 +21,7 @@ const BorrowSQL = {
   + ' SET isBorrow = \'00\''
   + ' WHERE id = ?',
   queryAll: 'SELECT'
-  + ' b.id, b.code, b.name, b.description, bo.date'
+  + ' bo.id, b.code, b.name, b.description, bo.date'
   + ' FROM book as b, borrow as bo'
   + ' WHERE b.id = bo.bid AND bo.isReturn = \'00\''
   + ' LIMIT ?,?',
@@ -26,7 +30,7 @@ const BorrowSQL = {
   + ' WHERE b.id = bo.bid AND bo.isReturn = \'00\'',
   queryUser: 
     'SELECT'
-    + ' b.id, b.code, b.name, b.description, bo.date'
+    + ' bo.id, b.id AS bid, b.code, b.name, b.description, bo.date'
     + ' FROM book AS b, borrow AS bo'
     + ' WHERE b.id = bo.bid AND bo.isReturn = \'00\' AND bo.uid = ?'
     + ' LIMIT ?,?',

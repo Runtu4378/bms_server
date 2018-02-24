@@ -107,4 +107,25 @@ router.post('/', (req, res) => {
   }
 })
 
+// 还书
+router.post('/:id', (req, res) => {
+  try {
+    const { id } = req.params
+    const { bid } = req.body
+    pool.getConnection((err1, connection) => {
+      if (err1) { throw err1 }
+      connection.query(borrowSQL.return, [id], (err2, result) => {
+        if (err2) { throw err2 }
+        connection.query(borrowSQL.markReturn, [bid], (err3, result) => {
+          connection.release()
+          if (err3) { throw err3 }
+          return dealRes(res, 0, '还书成功')
+        })
+      })
+    })
+  } catch (e) {
+    return dealRes(res, 1, 'internal error')
+  }
+})
+
 export default router
