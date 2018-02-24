@@ -2,6 +2,7 @@
 import upload from './upload'
 import user from './user'
 import book from './book'
+import borrow from './borrow'
 
 const router = (app) => {
   app.get('/', (req, res, next) => {
@@ -19,6 +20,7 @@ const router = (app) => {
   app.use('/api/upload', upload)
   app.use('/api/user', user)
   app.use('/api/book', book)
+  app.use('/api/borrow', borrow)
 }
 
 export default router

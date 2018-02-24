@@ -117,7 +117,7 @@ router.put('/:id', (req, res) => {
       })
     })
   } catch (e) {
-    return dealRes
+    return dealRes(res, 1, 'internal error')
   }
 })
 

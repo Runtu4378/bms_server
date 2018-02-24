@@ -1,5 +1,7 @@
 const BookSQL = {  
-  insert: 'INSERT INTO book(code, name, description, createTime, updateTime) VALUES(?, ?, ?, ?, ?)',
+  insert: 'INSERT'
+  + ' INTO book(code, name, description, createTime, updateTime)'
+  + ' VALUES(?, ?, ?, ?, ?)',
   update: 'UPDATE'
   + ' book'
   + ' SET name = ?, description = ?, updateTime = ?'
